@@ -21,7 +21,7 @@ const reviews = [
   {
     id: 3,
     name: "peter jones",
-    job: "intern",
+    job: "the Boss",
     img:
       "https://res.cloudinary.com/diqqf3eq2/image/upload/v1586883417/person-3_ipa0mj.jpg",
     text:
@@ -30,10 +30,63 @@ const reviews = [
   {
     id: 4,
     name: "bill anderson",
-    job: "the boss",
+    job: "intern",
     img:
       "https://res.cloudinary.com/diqqf3eq2/image/upload/v1586883423/person-4_t9nxjt.jpg",
     text:
       "Edison bulb put a bird on it humblebrag, marfa pok pok heirloom fashion axe cray stumptown venmo actually seitan. VHS farm-to-table schlitz, edison bulb pop-up 3 wolf moon tote bag street art shabby chic. ",
   },
 ];
+
+
+const author = document.getElementById('author')
+const img = document.getElementById('person-img')
+const job = document.getElementById('job')
+const info = document.getElementById('info')
+const nextBtn = document.querySelector('.next-btn')
+const prevBtn = document.querySelector('.prev-btn')
+const randomBtn = document.querySelector('.random-btn')
+
+
+let currentItem = 0;
+
+
+//load intial item
+
+window.addEventListener("DOMContentLoaded", function(){
+  showPerson(currentItem)
+})
+
+function showPerson(person){
+  const item = reviews[person]
+  img.src = item.img
+  author.textContent = item.name
+  job.textContent = item.job
+  info.textContent = item.text
+}
+
+nextBtn.addEventListener('click', function(){
+  currentItem++
+  if(currentItem > reviews.length - 1){
+    currentItem = 0;
+  }
+  showPerson(currentItem)
+})
+
+prevBtn.addEventListener('click', function(){
+  currentItem--
+  if(currentItem == 0 || currentItem < 0){
+    currentItem = reviews.length - 1
+  }
+  showPerson(currentItem)
+})
+
+randomBtn.addEventListener('click', function(){
+  let randomNum = Math.floor(Math.random()*reviews.length)
+  if (randomNum == currentItem){
+    randomNum = Math.floor(Math.random()*reviews.length)
+  }
+  currentItem = randomNum
+  
+  showPerson(currentItem)
+})
